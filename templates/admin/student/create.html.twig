@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+  {{parent()}}
+
+  <style>
+    .profile-image {
+      opacity: 0;
+      transition: 1s;
+    }
+  </style>
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="h1 text-center p-4">Create a Student</div>
+  {% for message in app.flashes('success') %}
+    <div class="alert-success h3 text-center">
+      {{message}}
+    </div>   
+  {% endfor %}
+
+  {{form_start(student_form)}}
+    <div class="alert-danger">
+      {{ form_errors(student_form) }}
+    </div>
+
+    {{form_row(student_form.profile.name)}}
+    {{form_row(student_form.profile.second_name)}}
+    {{form_row(student_form.profile.age)}}
+    {{form_row(student_form.profile.profile_image)}}
+    <img alt="" id="profileImage" width="100" class="profile-image">
+
+
+  {{form_end(student_form)}}
+
+  
+</div>
+{% endblock %}
+
+{% block javascripts %}
+  {{parent()}}
+
+  <script>
+    const input = document.getElementById('student_profile_profile_image');
+    const image = document.getElementById('profileImage');
+
+    input.addEventListener('change', function () {
+      if (this.files && this.files[0]) {
+        image.src = URL.createObjectURL(this.files[0]);
+
+        setTimeout(() => {
+          image.style.opacity = 1;
+        })
+      }
+    })
+  </script>
+{% endblock %}

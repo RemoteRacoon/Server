@@ -1,0 +1,13 @@
+{{form_start(student_form)}}
+    <div class="alert-danger">
+      {{ form_errors(student_form) }}
+    </div>
+
+    {{form_row(student_form.profile.name)}}
+    {{form_row(student_form.profile.second_name)}}
+    {{form_row(student_form.profile.age)}}
+    {{form_row(student_form.profile.profile_image)}}
+    <img alt="" id="profileImage" width="100" class="profile-image">
+
+
+{{form_end(student_form)}}

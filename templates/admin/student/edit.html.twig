@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+  {{parent()}}
+
+  <style>
+    .profile-image {
+      opacity: 0;
+      transition: 1s;
+    }
+  </style>
+
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="h3 text-center p-4">Edit user</div>
+
+    {% for message in app.flashes('success') %}
+      <div class="alert-success h3 text-center">
+        {{message}}
+      </div>   
+    {% endfor %}
+    
+    {% include "admin/student/form.html.twig" %}
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{parent()}}
+
+  <script>
+    const input = document.getElementById('student_profile_profile_image');
+    const image = document.getElementById('profileImage');
+
+    input.addEventListener('change', function () {
+      if (this.files && this.files[0]) {
+        image.src = URL.createObjectURL(this.files[0]);
+
+        setTimeout(() => {
+          image.style.opacity = 1;
+        })
+      }
+    })
+  </script>
+{% endblock %}

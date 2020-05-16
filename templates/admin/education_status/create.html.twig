@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="container">
+  <div class="h1 text-center p-5">Create an Education Status</div>
+  {% for message in app.flashes('success') %}
+    <div class="alert-success text-center h3">
+      {{message}}
+    </div> 
+  {% endfor %}
+    {{form_start(education_status_form)}}
+
+
+    {{form_end(education_status_form)}}
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+  <div class="container">
+    <div class="h1 text-center p-4">Students</div>
+
+    {% for message in app.flashes('success') %}
+      <div class="alert-success h3 text-center">
+        {{message}}
+      </div>   
+    {% endfor %}
+
+    {% for student in students %}
+    <div class="card p-2 mb-2" style="width: 18rem;">
+      <img class="card-img-top" src="{{ asset('uploads/images/profile/') ~ student.profile.image }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">
+          {{student.profile.getName()}} 
+          {{student.profile.getSecondName()}} 
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          {{student.email}} 
+        </h6>
+        <p class="card-text">{{student.profile.about}}</p>
+        <a href="/admin/student/{{student.id}}/edit" class="card-link alert-warning">Edit profile</a>
+        <form action="/admin/student/{{student.id}}/delete" method="POST">
+          <button class="btn alert-danger mt-2">Delete</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

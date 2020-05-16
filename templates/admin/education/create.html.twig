@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+  {{parent()}}
+
+  <style>
+    .eduImage {
+      transition: 1.5s;
+      opacity: 0;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <div class="h1 text-center p-5">Create Education Center</div>
+  {% for message in app.flashes('success') %}
+    <div class="alert-success h3 p-4 mt-2 text-center">
+      {{message}}
+    </div>
+  {% endfor %}
+
+  {{form_start(education_center_form)}}
+    {{form_row(education_center_form.name)}}
+    {{form_row(education_center_form.attachment)}}
+    <div class="image-wrapper pb-3" id="wrapper">
+      <img id='eduImage' class="eduImage" alt="">
+    </div>
+    {{form_row(education_center_form.submit)}}
+
+  {{form_end(education_center_form)}}
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+  const attachment = document.getElementById('education_center_attachment');
+
+  attachment.addEventListener('change', function(e) {
+    if (this.files && this.files[0]) {
+      const file = this.files[0];
+      const eduImage = document.getElementById('eduImage');
+      eduImage.src = URL.createObjectURL(file);
+      eduImage.style.height = '100px';
+      eduImage.style.width = '100px';
+
+      setTimeout(() => {
+        eduImage.style.opacity = 1;
+      })
+    }
+  })
+</script>
+{% endblock %}
